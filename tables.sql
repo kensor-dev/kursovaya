@@ -13,22 +13,22 @@ CREATE TABLE Teacher (
   position TEXT
 );
 
-CREATE TABLE Class (
-  class_id SERIAL PRIMARY KEY,
+CREATE TABLE Classs (
+  classs_id SERIAL PRIMARY KEY,
   number_letter TEXT,
-  class_teacher_id INTEGER,
+  classs_teacher_id INTEGER,
   student_list TEXT,
-  FOREIGN KEY (class_teacher_id) REFERENCES Teacher (teacher_id)
+  FOREIGN KEY (classs_teacher_id) REFERENCES Teacher (teacher_id)
 );
 
 CREATE TABLE Student (
   student_id SERIAL PRIMARY KEY,
   full_name TEXT,
   date_of_birth DATE,
-  class_id INTEGER,
+  classs_id INTEGER,
   contact_info TEXT,
   additional_info TEXT,
-  FOREIGN KEY (class_id) REFERENCES Class (class_id)
+  FOREIGN KEY (classs_id) REFERENCES Class (classs_id)
 );
 
 
@@ -61,9 +61,9 @@ CREATE TABLE Grade (
 
 CREATE TABLE Journal (
   journal_id SERIAL PRIMARY KEY,
-  class_id INTEGER,
+  classs_id INTEGER,
   subject_id INTEGER,
   grade_list TEXT,
-  FOREIGN KEY (class_id) REFERENCES Class (class_id),
+  FOREIGN KEY (classs_id) REFERENCES Classs (classs_id),
   FOREIGN KEY (subject_id) REFERENCES Subject (subject_id)
 );

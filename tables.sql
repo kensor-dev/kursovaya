@@ -1,69 +1,62 @@
-CREATE TABLE Parent (
+CREATE TABLE parent (
   parent_id SERIAL PRIMARY KEY,
-  full_name TEXT,
+  full_name TEXT NOT NULL,
   contact_info TEXT,
   student_relation TEXT
 );
 
-CREATE TABLE Teacher (
+CREATE TABLE teacher (
   teacher_id SERIAL PRIMARY KEY,
-  full_name TEXT,
-  subject_id INTEGER,
+  full_name TEXT NOT NULL,
   contact_info TEXT,
   position TEXT
 );
 
-CREATE TABLE Classs (
-  classs_id SERIAL PRIMARY KEY,
-  number_letter TEXT,
-  classs_teacher_id INTEGER,
-  student_list TEXT,
-  FOREIGN KEY (classs_teacher_id) REFERENCES Teacher (teacher_id)
-);
-
-CREATE TABLE Student (
-  student_id SERIAL PRIMARY KEY,
-  full_name TEXT,
-  date_of_birth DATE,
-  classs_id INTEGER,
-  contact_info TEXT,
-  additional_info TEXT,
-  FOREIGN KEY (classs_id) REFERENCES Class (classs_id)
-);
-
-
-
-CREATE TABLE Subject (
+CREATE TABLE subject (
   subject_id SERIAL PRIMARY KEY,
-  name TEXT,
+  name TEXT NOT NULL,
   description TEXT,
   teacher_id INTEGER,
-  FOREIGN KEY (teacher_id) REFERENCES Teacher (teacher_id)
+  FOREIGN KEY (teacher_id) REFERENCES teacher (teacher_id) ON DELETE SET NULL
 );
 
-ALTER TABLE Teacher
-ADD CONSTRAINT fk_subject_id
-FOREIGN KEY (subject_id) REFERENCES Subject (subject_id);
+CREATE TABLE school_class (
+  class_id SERIAL PRIMARY KEY,
+  number_letter TEXT NOT NULL,
+  class_teacher_id INTEGER,
+  FOREIGN KEY (class_teacher_id) REFERENCES teacher (teacher_id) ON DELETE SET NULL
+);
 
+CREATE TABLE student (
+  student_id SERIAL PRIMARY KEY,
+  full_name TEXT NOT NULL,
+  date_of_birth DATE,
+  class_id INTEGER,
+  contact_info TEXT,
+  additional_info TEXT,
+  parent_id INTEGER,
+  FOREIGN KEY (class_id) REFERENCES school_class (class_id) ON DELETE SET NULL,
+  FOREIGN KEY (parent_id) REFERENCES parent (parent_id) ON DELETE SET NULL
+);
 
-CREATE TABLE Grade (
+CREATE TABLE grade (
   grade_id SERIAL PRIMARY KEY,
-  student_id INTEGER,
-  subject_id INTEGER,
+  student_id INTEGER NOT NULL,
+  subject_id INTEGER NOT NULL,
   teacher_id INTEGER,
   date_issued DATE,
   grade REAL,
   comment TEXT,
-  FOREIGN KEY (student_id) REFERENCES Student (student_id),
-  FOREIGN KEY (subject_id) REFERENCES Subject (subject_id),
-  FOREIGN KEY (teacher_id) REFERENCES Teacher (teacher_id)
+  FOREIGN KEY (student_id) REFERENCES student (student_id) ON DELETE CASCADE,
+  FOREIGN KEY (subject_id) REFERENCES subject (subject_id) ON DELETE CASCADE,
+  FOREIGN KEY (teacher_id) REFERENCES teacher (teacher_id) ON DELETE SET NULL
 );
 
-CREATE TABLE Journal (
+CREATE TABLE journal (
   journal_id SERIAL PRIMARY KEY,
-  classs_id INTEGER,
+  class_id INTEGER,
   subject_id INTEGER,
   grade_list TEXT,
-  FOREIGN KEY (classs_id) REFERENCES Classs (classs_id),
-  FOREIGN KEY (subject_id) REFERENCES Subject (subject_id)
+  FOREIGN KEY (class_id) REFERENCES school_class (class_id),
+  FOREIGN KEY (subject_id) REFERENCES subject (subject_id)
 );

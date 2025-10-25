@@ -1,5 +1,5 @@
 # backend/app/models.py
-from sqlalchemy import Column, Integer, Text, Date, Float, ForeignKey
+from sqlalchemy import Column, Integer, Text, Date, Float, ForeignKey, DECIMAL
 from sqlalchemy.orm import relationship
 from .database import Base
 

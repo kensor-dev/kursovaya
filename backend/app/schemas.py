@@ -2,21 +2,6 @@ from pydantic import BaseModel
 from typing import Optional
 from datetime import date
 
-class StudentBase(BaseModel):
-    full_name: str
-    date_of_birth: Optional[date] = None
-    class_id: Optional[int] = None
-    contact_info: Optional[str] = None
-    additional_info: Optional[str] = None
-    parent_id: Optional[int] = None
-
-class StudentCreate(StudentBase):
-    pass
-
-class StudentOut(StudentBase):
-    student_id: int
-    class Config:
-        from_attributes = True
 
 class TeacherBase(BaseModel):
     full_name: str
@@ -28,31 +13,6 @@ class TeacherCreate(TeacherBase):
 
 class TeacherOut(TeacherBase):
     teacher_id: int
-    class Config:
-        from_attributes = True
-
-class SubjectBase(BaseModel):
-    name: str
-    description: Optional[str] = None
-    teacher_id: Optional[int] = None
-
-class SubjectCreate(SubjectBase):
-    pass
-
-class SubjectOut(SubjectBase):
-    subject_id: int
-    class Config:
-        from_attributes = True
-
-class SchoolClassBase(BaseModel):
-    number_letter: str
-    class_teacher_id: Optional[int] = None
-
-class SchoolClassCreate(SchoolClassBase):
-    pass
-
-class SchoolClassOut(SchoolClassBase):
-    class_id: int
     class Config:
         from_attributes = True
 
@@ -69,6 +29,50 @@ class ParentOut(ParentBase):
     class Config:
         from_attributes = True
 
+class SchoolClassBase(BaseModel):
+    number_letter: str
+    class_teacher_id: Optional[int] = None
+
+class SchoolClassCreate(SchoolClassBase):
+    pass
+
+class SchoolClassOut(SchoolClassBase):
+    class_id: int
+    class_teacher: Optional[TeacherOut]
+    class Config:
+        from_attributes = True
+
+class StudentBase(BaseModel):
+    full_name: str
+    date_of_birth: Optional[date] = None
+    class_id: Optional[int] = None
+    contact_info: Optional[str] = None
+    additional_info: Optional[str] = None
+    parent_id: Optional[int] = None
+
+class StudentCreate(StudentBase):
+    pass
+
+class StudentOut(StudentBase):
+    student_id: int
+    school_class: Optional[SchoolClassOut]
+    class Config:
+        from_attributes = True
+
+class SubjectBase(BaseModel):
+    name: str
+    description: Optional[str] = None
+    teacher_id: Optional[int] = None
+
+class SubjectCreate(SubjectBase):
+    pass
+
+class SubjectOut(SubjectBase):
+    subject_id: int
+    teacher: Optional[TeacherOut]
+    class Config:
+        from_attributes = True
+
 class GradeBase(BaseModel):
     student_id: int
     subject_id: int
@@ -82,5 +86,7 @@ class GradeCreate(GradeBase):
 
 class GradeOut(GradeBase):
     grade_id: int
+    teacher: Optional[TeacherOut]
+    subject: Optional[SubjectOut]
     class Config:
         from_attributes = True

@@ -29,7 +29,6 @@ class Subject(Base):
     teacher_id = Column(Integer, ForeignKey("teacher.teacher_id", ondelete="SET NULL"))
     teacher = relationship("Teacher", back_populates="subjects")
     grades = relationship("Grade", back_populates="subject")
-    journals = relationship("Journal", back_populates="subject")
 
 class SchoolClass(Base):
     __tablename__ = "school_class"
@@ -39,7 +38,6 @@ class SchoolClass(Base):
 
     class_teacher = relationship("Teacher", back_populates="classes")
     students = relationship("Student", back_populates="school_class")
-    journals = relationship("Journal", back_populates="school_class")
 
 class Student(Base):
     __tablename__ = "student"
@@ -68,12 +66,4 @@ class Grade(Base):
     student = relationship("Student", back_populates="grades")
     subject = relationship("Subject", back_populates="grades")
 
-class Journal(Base):
-    __tablename__ = "journal"
-    journal_id = Column(Integer, primary_key=True, index=True)
-    class_id = Column(Integer, ForeignKey("school_class.class_id"))
-    subject_id = Column(Integer, ForeignKey("subject.subject_id"))
-    grade_list = Column(Text)
 
-    school_class = relationship("SchoolClass", back_populates="journals")
-    subject = relationship("Subject", back_populates="journals")

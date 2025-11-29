@@ -174,3 +174,11 @@ def delete_grade(db: Session, grade_id: int):
         db.delete(db_grade)
         db.commit()
     return db_grade
+
+def get_grades_filtered(db: Session, subject_id: int = None, class_id: int = None, skip: int = 0, limit: int = 100):
+    query = db.query(models.Grade)
+    if subject_id is not None:
+        query = query.filter(models.Grade.subject_id == subject_id)
+    if class_id is not None:
+        query = query.join(models.Student).filter(models.Student.class_id == class_id)
+    return query.offset(skip).limit(limit).all()

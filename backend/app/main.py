@@ -1,3 +1,4 @@
+from typing import Optional
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
@@ -180,8 +181,8 @@ def delete_parent(parent_id: int, db: Session = Depends(get_db)):
     return {"msg": "Parent deleted"}
 
 @app.get("/grades/", response_model=list[schemas.GradeOut])
-def list_grades(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    return crud.get_grades(db=db, skip=skip, limit=limit)
+def list_grades(subject_id: Optional[int] = None, class_id: Optional[int] = None, skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    return crud.get_grades_filtered(db=db, subject_id=subject_id, class_id=class_id, skip=skip, limit=limit)
 
 @app.get("/grades/{grade_id}", response_model=schemas.GradeOut)
 def get_grade(grade_id: int, db: Session = Depends(get_db)):

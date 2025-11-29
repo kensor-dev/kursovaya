@@ -51,12 +51,3 @@ CREATE TABLE grade (
   FOREIGN KEY (subject_id) REFERENCES subject (subject_id) ON DELETE CASCADE,
   FOREIGN KEY (teacher_id) REFERENCES teacher (teacher_id) ON DELETE SET NULL
 );
-
-CREATE TABLE journal (
-  journal_id SERIAL PRIMARY KEY,
-  class_id INTEGER,
-  subject_id INTEGER,
-  grade_list TEXT,
-  FOREIGN KEY (class_id) REFERENCES school_class (class_id),
-  FOREIGN KEY (subject_id) REFERENCES subject (subject_id)
-);

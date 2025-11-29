@@ -1,4 +1,3 @@
-# backend/app/models.py
 from sqlalchemy import Column, Integer, Text, Date, Float, ForeignKey, DECIMAL
 from sqlalchemy.orm import relationship
 from .database import Base
@@ -60,10 +59,7 @@ class Grade(Base):
     subject_id = Column(Integer, ForeignKey("subject.subject_id", ondelete="CASCADE"), nullable=False)
     teacher_id = Column(Integer, ForeignKey("teacher.teacher_id", ondelete="SET NULL"))
     date_issued = Column(Date)
-    grade = Column(Float)
+    grade = Column(Text)
     comment = Column(Text)
-
     student = relationship("Student", back_populates="grades")
     subject = relationship("Subject", back_populates="grades")
-
-

@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
-from datetime import date
+from datetime import date, datetime
 
 
 class TeacherBase(BaseModel):
@@ -38,7 +38,7 @@ class SchoolClassCreate(SchoolClassBase):
 
 class SchoolClassOut(SchoolClassBase):
     class_id: int
-    class_teacher: Optional[TeacherOut]
+    class_teacher: Optional[TeacherOut] = None
     class Config:
         from_attributes = True
 
@@ -55,7 +55,7 @@ class StudentCreate(StudentBase):
 
 class StudentOut(StudentBase):
     student_id: int
-    school_class: Optional[SchoolClassOut]
+    school_class: Optional[SchoolClassOut] = None
     class Config:
         from_attributes = True
 
@@ -69,7 +69,7 @@ class SubjectCreate(SubjectBase):
 
 class SubjectOut(SubjectBase):
     subject_id: int
-    teacher: Optional[TeacherOut]
+    teacher: Optional[TeacherOut] = None
     class Config:
         from_attributes = True
 
@@ -78,7 +78,7 @@ class GradeBase(BaseModel):
     subject_id: int
     teacher_id: Optional[int] = None
     date_issued: Optional[date] = None
-    grade: Optional[float] = None
+    grade: Optional[str] = None
     comment: Optional[str] = None
 
 class GradeCreate(GradeBase):
@@ -86,7 +86,8 @@ class GradeCreate(GradeBase):
 
 class GradeOut(GradeBase):
     grade_id: int
-    teacher: Optional[TeacherOut]
-    subject: Optional[SubjectOut]
+    teacher: Optional[TeacherOut] = None
+    subject: Optional[SubjectOut] = None
+    student: Optional[StudentOut] = None
     class Config:
         from_attributes = True

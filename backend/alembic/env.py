@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from app.database import Base
-from app.models import Parent, Teacher, Subject, SchoolClass, Student, Grade, Journal
+from app.models import Parent, Teacher, Subject, SchoolClass, Student, Grade
 
 load_dotenv()
 

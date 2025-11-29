@@ -67,6 +67,8 @@ export const classesApi = {
 export const gradesApi = {
   getAll: (skip = 0, limit = 100) =>
     api.get<Grade[]>('/grades/', { params: { skip, limit } }),
+  getFiltered: (subjectId?: number, classId?: number, skip = 0, limit = 100) =>
+    api.get<Grade[]>('/grades/', { params: { subject_id: subjectId, class_id: classId, skip, limit } }),
   create: (data: GradeCreate) => api.post<Grade>('/grades/', data),
   getById: (id: number) => api.get<Grade>(`/grades/${id}`),
   update: (id: number, data: Partial<GradeCreate>) =>

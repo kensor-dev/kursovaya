@@ -45,10 +45,11 @@ export interface Grade {
   subject_id: number;
   teacher_id?: number;
   date_issued?: string;
-  grade?: number;
+  grade?: string;
   comment?: string;
   student?: Student;
   subject?: Subject;
+  teacher?: Teacher;
 }
 
 export interface StudentCreate {
@@ -82,7 +83,7 @@ export interface GradeCreate {
   subject_id: number;
   teacher_id?: number | null;
   date_issued?: string | null;
-  grade?: number | null;
+  grade?: string | null;
   comment?: string | null;
 }
 

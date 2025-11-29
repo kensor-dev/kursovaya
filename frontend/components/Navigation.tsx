@@ -21,6 +21,7 @@ import BookIcon from '@mui/icons-material/Book';
 import ClassIcon from '@mui/icons-material/Class';
 import GradeIcon from '@mui/icons-material/Grade';
 import HomeIcon from '@mui/icons-material/Home';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 
@@ -34,6 +35,7 @@ const menuItems = [
   { text: 'Классы', icon: <ClassIcon />, path: '/classes' },
   { text: 'Оценки', icon: <GradeIcon />, path: '/grades' },
   { text: 'Родители', icon: <PeopleIcon />, path: '/parents' },
+  { text: 'Журналы', icon: <MenuBookIcon />, path: '/journals' },
 ];
 
 export default function Navigation({ children }: { children: React.ReactNode }) {

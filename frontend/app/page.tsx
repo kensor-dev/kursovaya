@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Grid, Paper, Typography } from '@mui/material';
+import { Box, Paper, Typography } from '@mui/material';
 import SchoolIcon from '@mui/icons-material/School';
 import PersonIcon from '@mui/icons-material/Person';
 import BookIcon from '@mui/icons-material/Book';
@@ -26,9 +26,9 @@ export default function Home() {
       <Typography variant="body1" paragraph color="text.secondary">
         Добро пожаловать в систему учёта успеваемости
       </Typography>
-      <Grid container spacing={3} sx={{ mt: 2 }}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }, gap: 3, mt: 2 }}>
         {dashboardCards.map((card) => (
-          <Grid item xs={12} sm={6} md={4} key={card.title}>
+          <Box key={card.title}>
             <Paper
               sx={{
                 p: 3,
@@ -51,9 +51,9 @@ export default function Home() {
                 {card.title}
               </Typography>
             </Paper>
-          </Grid>
+          </Box>
         ))}
-      </Grid>
+      </Box>
     </Box>
   );
 }

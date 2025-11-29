@@ -34,7 +34,7 @@ export default function GradesPage() {
     subject_id: 0,
     teacher_id: null,
     date_issued: '',
-    grade: null,
+    grade: '',
     comment: '',
   });
 
@@ -59,7 +59,7 @@ export default function GradesPage() {
         subject_id: grade.subject_id,
         teacher_id: grade.teacher_id,
         date_issued: grade.date_issued || '',
-        grade: grade.grade,
+        grade: grade.grade || '',
         comment: grade.comment || '',
       });
     } else {
@@ -69,7 +69,7 @@ export default function GradesPage() {
         subject_id: 0,
         teacher_id: null,
         date_issued: '',
-        grade: null,
+        grade: '',
         comment: '',
       });
     }
@@ -191,9 +191,8 @@ export default function GradesPage() {
           <TextField
             fullWidth
             label="Оценка"
-            type="number"
             value={formData.grade || ''}
-            onChange={(e) => setFormData({ ...formData, grade: e.target.value ? Number(e.target.value) : null })}
+            onChange={(e) => setFormData({ ...formData, grade: e.target.value })}
             margin="normal"
           />
           <TextField
